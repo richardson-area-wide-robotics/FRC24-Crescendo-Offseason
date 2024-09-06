@@ -150,24 +150,10 @@ public class Pivot extends SubsystemBase {
             case UP:
                 manualControl = true;
                 pivotSpeed(PivotConstants.kPivotUpSpeed);
-                // m_PivotAngle = m_PivotAngle.plus(Radians.of(0.0005)); // TODO: change to
-                // constant
-                // if (m_PivotAngle.in(Radians) >=
-                // Constants.ShooterConstants.kPivotForwardSoftLimit) {
-                // m_PivotAngle = Radians.of(Constants.ShooterConstants.kPivotForwardSoftLimit);
-                // }
-                // PivotTo(m_PivotAngle);
                 break;
             case DOWN:
                 manualControl = true;
                 pivotSpeed(PivotConstants.kPivotDownSpeed);
-                // m_PivotAngle = m_PivotAngle.minus(Radians.of(0.0005)); // TODO: change to
-                // constant
-                // if (m_PivotAngle.in(Radians) <=
-                // Constants.ShooterConstants.kPivotReverseSoftLimit) {
-                // m_PivotAngle = Radians.of(Constants.ShooterConstants.kPivotReverseSoftLimit);
-                // }
-                // PivotTo(m_PivotAngle);
                 break;
             case STOP:
             default:
@@ -182,14 +168,6 @@ public class Pivot extends SubsystemBase {
         m_PivotRightMotor.set(speedPercentage);
     }
 
-    // /**
-    //  * Pivots the shooter to a given angle about the axis of the absolute encoder.
-    //  */
-    // public void pivotTo(Measure<Angle> angle) {
-    //     m_setPoint = angle;
-    //     m_PivotPIDController.setReference(angle.in(Radians), ControlType.kPosition);
-    // }
-    
     // angle is in radians
     public void pivotFromCamera(Measure<Angle> angle){
         m_setPoint = angle;

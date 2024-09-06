@@ -4,10 +4,6 @@
 
 package frc.robot.subsystems.drive;
 
-import java.util.Optional;
-
-import org.photonvision.EstimatedRobotPose;
-
 import com.kauailabs.navx.frc.AHRS;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.util.HolonomicPathFollowerConfig;

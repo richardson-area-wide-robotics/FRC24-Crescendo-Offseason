@@ -125,13 +125,12 @@ public class Shooter extends SubsystemBase {
 
 
     public void reverse() {
-        // TODO: change to constants
         m_shooterState = ShooterState.REVERSE;
-        m_shooterLeftMotor.set(-0.1);
-        m_shooterRightMotor.set(-0.1);
+        m_shooterLeftMotor.set(ShooterConstants.kShooterReverseSpeed);
+        m_shooterRightMotor.set(ShooterConstants.kShooterReverseSpeed);
     }
 
-        public void toggleState(ShooterState state) {
+    public void toggleState(ShooterState state) {
         if (m_shooterState == state) {
             m_shooterState = ShooterState.IDLE;
         } else {

@@ -211,7 +211,7 @@ public class RobotContainer {
     m_operatorController.povUp().whileTrue(m_climber.climbUp());
     m_operatorController.povDown().whileTrue(m_climber.climbDown());
 
-      }
+    }
 
   private void configureOperatorBindings() {
     /*
@@ -283,7 +283,7 @@ public class RobotContainer {
   }
 
   /**
-   * Use this method to pass anythign to the dashboard
+   * Use this method to pass anything to the dashboard
    * 
    * Reduces multi method use to Shuffleboard
    */

@@ -45,21 +45,21 @@ public class Feeder extends SubsystemBase {
         // m_currentEntry.setDouble(m_feederMotor.getOutputCurrent());
     }
 
-    /*
-     * Returns the speed of the motor
+    /**
+     * Returns the speed of {@link m_feederMotor}
      */
     public double getSpeed(){
         return m_feederMotor.get();
     }
 
-    /*
+    /**
      * Returns output current of the motor
      */
     public double getCurrent(){
         return m_feederMotor.getOutputCurrent();
     }
 
-    /*
+    /**
      * Stops the feeder motor
      */
     public void idleFeeder(){
@@ -82,28 +82,28 @@ public class Feeder extends SubsystemBase {
         m_feederMotor.set(speed);
     }
 
-    /*
+    /**
      * Method that spins the feeder motor at full positive speed - intaking
      */
     public void intake(){
         m_feederMotor.set(FeederConstants.kFeederSpeed);
     }
 
-    /*
+    /**
      * Method that spins the feeder motor at full negative speed - outtaking
      */
     public void outtake(){
         m_feederMotor.set(-FeederConstants.kFeederSpeed);
     }
 
-    /*
+    /**
      * Sets the default command for the feeder
      */
     public void setDefaultCommand(){
         super.setDefaultCommand(Commands.run(()-> idleFeeder(), this));
     }
 
-    /*
+    /**
      * Command that spits the note back towards the intake
      */
     public Command spitNote(){
@@ -118,7 +118,7 @@ public class Feeder extends SubsystemBase {
         return hasNote;
     }
 
-    /*
+    /**
      * Functional Command that recieves the note from the intake and spins the feeder motor until the note is detected
      */
     public Command feedNote(){
@@ -141,7 +141,7 @@ public class Feeder extends SubsystemBase {
         );
     }
 
-    /*
+    /**
      * Functional Command that shoots the note from the feeder into the shooter wheels and stops when the note is no longer detected
      */
     public Command shootNote(){
