@@ -54,7 +54,7 @@ public class RobotContainer {
   private final ShootBackUp m_shootBackUp = new ShootBackUp(m_robotDrive, m_intake, m_shooter, m_pivot, m_feeder);
   private final TwoShootBasicAuto m_twoShootBasicAuto = new TwoShootBasicAuto(m_robotDrive, m_intake, m_shooter, m_pivot, m_feeder);
   private final BackUp m_backUp = new BackUp(m_robotDrive);
-  private SendableChooser<Command> autonomousChooser = new SendableChooser<Command>();
+  private final SendableChooser<Command> autonomousChooser = new SendableChooser<>();
 
   // The driver's controller
   CommandXboxController m_driverController = new CommandXboxController(IOConstants.kDriverControllerPort);
@@ -86,8 +86,7 @@ public class RobotContainer {
    * Configure the button bindings for the Diver's Controller ({@code m_driverController})
    */
   private void configureDriverBindings() {
-    // Configure default commands
-    /**
+    /*
      * ---Driving Controls for the driver
      * The left stick on Xbox controller controls the translation of the robot - 1
      * The right stick controls the rotation of the robot - 12
@@ -115,7 +114,7 @@ public class RobotContainer {
           m_robotDrive.zeroHeading();
         }, m_robotDrive));
 
-    /**
+    /*
      * INTAKE and FEEDER controls
      * 
      * LEFT BUMPER: Intake note and feed into shooter
@@ -125,7 +124,7 @@ public class RobotContainer {
 
     m_driverController.rightBumper().whileTrue(m_feeder.spitNote().alongWith(m_intake.outtake()));
 
-    /**
+    /*
      * SHOOTER PIVOT controls 
      * 
      * LEFT TRIGGER: Pivot up
@@ -149,18 +148,17 @@ public class RobotContainer {
 
 
 
-    /**
+    /*
      * PIVOT auto commands
      * 
      * LEFT D-PAD: Pivot to AMP
      * RIGHT D-PAD: Pivot to Speaker
      */
     m_driverController.povLeft().whileTrue(m_pivot.pivotToAMP()).onTrue(Commands.runOnce(()-> m_shooter.setStateSpeaker(ShooterState.IDLE)));
-
     m_driverController.povRight().whileTrue(m_pivot.pivotToSpeaker()).onTrue(Commands.runOnce(()-> m_shooter.setStateSpeaker(ShooterState.SPEAKER)));
 
 
-    /**
+    /*
      * SHOOTING controls
      * 
      * B BUTTON: Auto aim
@@ -180,7 +178,7 @@ public class RobotContainer {
     m_driverController.a().whileTrue(m_feeder.shootNote());
 
 
-    /**
+    /*
      * CLIMBING controls
      * 
      * UP D-PAD: Climb up
@@ -197,26 +195,18 @@ public class RobotContainer {
    */
   private void configureOperatorBindings() {
 
-    /**
+    /*
      * PIVOT auto commands
      * 
      * LEFT D-PAD: Pivot to AMP
      * RIGHT D-PAD: Pivot to Speaker
+     * DOWN D-PAD: Pivot to Rest
      */
     m_operatorController.povLeft().whileTrue(m_pivot.pivotToAMP()).onTrue(Commands.runOnce(()-> m_shooter.setStateSpeaker(ShooterState.IDLE)));
     m_operatorController.povRight().whileTrue(m_pivot.pivotToSpeaker()).onTrue(Commands.runOnce(()-> m_shooter.setStateSpeaker(ShooterState.SPEAKER)));
+    m_operatorController.povDown().whileTrue(m_pivot.pivotToRest()).onTrue(Commands.runOnce(()-> m_shooter.setStateSpeaker(ShooterState.IDLE)));
 
-    /**
-     * CLIMBING controls
-     * 
-     * UP D-PAD: Climb up
-     * DOWN D-PAD: Climb down
-     */
-    m_operatorController.povUp().whileTrue(m_climber.climbUp());
-    m_operatorController.povDown().whileTrue(m_climber.climbDown());
-
-
-     /**
+     /*
      * SHOOTING controls
      * 
      * Y BUTTON: Toggle Shooter State
@@ -243,10 +233,10 @@ public class RobotContainer {
   }
 
   public void getRumble(){
-    if(m_feeder.hasNote() == true){
+    if(m_feeder.hasNote()){
       m_driverControllerSP.setRumble(RumbleType.kLeftRumble, 0.1);
     }
-    else if (m_feeder.hasNote() ==  false){
+    else if (!m_feeder.hasNote()){
       m_driverControllerSP.setRumble(RumbleType.kLeftRumble, 0);
     }
 
@@ -306,7 +296,7 @@ public class RobotContainer {
   }
 
   /**
-   * Sets the idle mode for the arm and intake joints
+   * Sets the idle mode for the arm and intake joints.
    * 
    * Used to make the robot arm easier to move when disabled
    */

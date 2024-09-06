@@ -58,11 +58,11 @@ public final class Constants {
     /*
      * Chassis configuration
      */
-    // Distance between centers of right and left wheels on robot
+    /** Distance between centers of right and left wheels on robot */
     public static final double kTrackWidth = Units.inchesToMeters(24.5);
-    // Distance between front and back wheels on robot
+    /** Distance between front and back wheels on robot */
     public static final double kWheelBase = Units.inchesToMeters(23.0);
-    // The kinematics for the robot drivetrain
+    /** The kinematics for the robot drivetrain */
     public static final SwerveDriveKinematics kDriveKinematics = new SwerveDriveKinematics(
         new Translation2d(kWheelBase / 2.0, kTrackWidth / 2.0),
         new Translation2d(kWheelBase / 2.0, -kTrackWidth / 2.0),
@@ -73,7 +73,7 @@ public final class Constants {
     public static final double kDriveRadius = Math.sqrt(Math.pow(kWheelBase, 2) + Math.pow(kTrackWidth, 2));
 
     /*
-     * Spark Max and encoder constents for MAXSwerve modules
+     * Spark Max and encoder constants for MAXSwerve modules
      */
     public static final class FrontLeftModule {
       // The CAN ID for the drive motor
@@ -318,8 +318,8 @@ public final class Constants {
     public static final double kPivotPresetSubwoofer = 0.135;
     public static final double kPivotPresetAmp = 0.31;
 
-    public static final Measure<Angle> kPivotPresetSubwooferv2 = Radians.of(0.135);
-    public static final Measure<Angle> kPivotPresetAmpv2 = Radians.of(0.31);
+    public static final Measure<Angle> kPivotPresetSubwooferv2 = Radians.of(kPivotPresetSubwoofer);
+    public static final Measure<Angle> kPivotPresetAmpv2 = Radians.of(kPivotPresetAmp);
     public static final Measure<Angle> kPivotPresetRest = Radians.of(0.015);
 
     public static final double kPivotSpeed = 0.2;
