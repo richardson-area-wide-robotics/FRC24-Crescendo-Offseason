@@ -83,7 +83,7 @@ public class RobotContainer {
     Lock lockMode = new Lock(m_robotDrive, m_pivot, m_camera, moveForward, moveSideways);
 
   /**
-   * Configure the button bindings for the Diver's Controllor ({@code m_driverController})
+   * Configure the button bindings for the Diver's Controller ({@code m_driverController})
    */
   private void configureDriverBindings() {
     // Configure default commands
@@ -193,7 +193,7 @@ public class RobotContainer {
     }
 
   /**
-   * Configure the button bindings for the Operator's Controllor ({@code m_operatorController})
+   * Configure the button bindings for the Operator's Controller ({@code m_operatorController})
    */
   private void configureOperatorBindings() {
 

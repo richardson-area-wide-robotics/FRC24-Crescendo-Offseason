@@ -223,14 +223,23 @@ public class Pivot extends SubsystemBase {
     //     setDefaultCommand(Commands.run(()-> {manualControl = false; m_setPoint = getEncoderPosition(); pivotSpeed(0);}, this));
     // }
 
+    /**
+     * Pivots the shooter to the position where it can score AMP
+     */
     public Command pivotToAMP(){
         return Commands.run(()-> pivotTo(PivotConstants.kPivotPresetAmpv2), this);
     }
 
+    /**
+     * Pivots the shooter to the position where it can score Shooter
+     */
     public Command pivotToSpeaker(){
         return Commands.run(()-> pivotTo(PivotConstants.kPivotPresetSubwooferv2), this);
     }
 
+    /**
+     * Pivots the shooter to "Rest"
+     */
     public Command pivotToRest(){
         return Commands.run(()-> pivotTo(PivotConstants.kPivotPresetRest), this);
     }
