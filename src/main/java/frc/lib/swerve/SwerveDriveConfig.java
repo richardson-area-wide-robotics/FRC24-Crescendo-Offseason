@@ -3,8 +3,6 @@ package frc.lib.swerve;
 import com.revrobotics.CANSparkFlex;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkPIDController;
-import com.revrobotics.CANSparkLowLevel.MotorType;
-
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import frc.lib.controller.FFGains;
 import frc.lib.controller.PIDGains;

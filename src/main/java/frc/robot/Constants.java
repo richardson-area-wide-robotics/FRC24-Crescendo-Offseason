@@ -8,7 +8,6 @@ import edu.wpi.first.units.Distance;
 import static edu.wpi.first.units.Units.*;
 import edu.wpi.first.units.Measure;
 import edu.wpi.first.units.Velocity;
-import edu.wpi.first.wpilibj.CAN;
 import edu.wpi.first.units.Angle;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
@@ -17,7 +16,6 @@ import edu.wpi.first.math.util.Units;
 
 import com.revrobotics.CANSparkBase;
 import com.revrobotics.CANSparkBase.IdleMode;
-import com.revrobotics.CANSparkBase.SoftLimitDirection;
 import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
 import com.pathplanner.lib.util.PIDConstants;
 import com.pathplanner.lib.util.ReplanningConfig;
@@ -25,10 +23,6 @@ import edu.wpi.first.math.controller.PIDController;
 import frc.lib.controller.FFGains;
 import frc.lib.controller.PIDGains;
 import frc.lib.util.SwerveModuleConstants;
-import com.revrobotics.CANSparkBase.IdleMode;
-import edu.wpi.first.units.Angle;
-import edu.wpi.first.units.Measure;
-import static edu.wpi.first.units.Units.*;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide
@@ -239,7 +233,7 @@ public final class Constants {
     TRAP_3
   }
 
-  /* Shooter Constants */
+  /** Shooter Constants */
   public static final class ShooterConstants {
     public static final int kKickerMotorCANID = 12;
     public static final int kShooterRightCANID = 13;
@@ -292,8 +286,8 @@ public final class Constants {
 }
 
 
-  /* Pivot Constants */
-    public static final class PivotConstants {
+  /** Pivot Constants */
+  public static final class PivotConstants {
     // Id's for the pivot motors
     public static final int pivotRightCANID = 9;
     public static final int pivotLeftCANID = 10;
@@ -327,26 +321,27 @@ public final class Constants {
     public static final Measure<Angle> kPivotPresetRest = Radians.of(0.015);
 
     public static final double kPivotSpeed = 0.2;
-
     public static final double kPivotUpSpeed = 0.2;
     public static final double kPivotDownSpeed = -0.05;
 
-       public static enum PivotDirection {
-      UP, 
-      DOWN,
-      STOP
-    }
+      public static enum PivotDirection {
+        UP, 
+        DOWN,
+        STOP
+      }
     }
 
+    /** Feeder Constants */
     public static final class FeederConstants{
       public static final int kFeederCANID = 11;
       public static final int kFeederCurrentLimit = 60;
       public static final boolean kFeederMotorInverted = false;
       public static final double kFeederSpeed = 1;
       public static final IdleMode kFeederIdleMode = IdleMode.kBrake;
-    public static final int kFeederSensorPort = 0;
+      public static final int kFeederSensorPort = 0;
     }
 
+    /** Intake Constants */
     public static final class IntakeConstants{
       public static final int kIntakeCANID = 15;
       public static final int kIntakeCurrentLimit = 60;
@@ -357,12 +352,13 @@ public final class Constants {
       // public static final int kIntakeSensorPort = 0;
 
       public static enum IntakeState{
-      IDLE, 
-      INTAKE,
-      OUTTAKE,
+        IDLE, 
+        INTAKE,
+        OUTTAKE,
       }
     }
 
+    /** Climber Constants */
     public static class ClimberConstants {
       public static final int kClimberLeftCANID = 16;
       public static final int kClimberRightCANID = 17;
