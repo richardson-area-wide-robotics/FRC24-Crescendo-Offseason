@@ -75,13 +75,7 @@ public class RobotContainer {
   }
 
   /**
-   * Use this method to define your button->command mappings. Buttons can be
-   * created by
-   * instantiating a {@link edu.wpi.first.wpilibj.GenericHID} or one of its
-   * subclasses ({@link
-   * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then calling
-   * passing it to a
-   * {@link JoystickButton}.
+   * Configure the button bindings for the Diver's Controllor ({@code m_driverController})
    */
   private void configureDriverBindings() {
     // set up for driving controls
@@ -137,7 +131,7 @@ public class RobotContainer {
      * LEFT TRIGGER: Pivot up
      * RIGHT TRIGGER: Pivot down
      */
-       m_driverController
+      m_driverController
         .leftTrigger()
         .whileTrue(Commands.runEnd(() -> {
           m_pivot.pivot(PivotDirection.UP);
@@ -166,12 +160,12 @@ public class RobotContainer {
     m_driverController.povRight().whileTrue(m_pivot.pivotToSpeaker()).onTrue(Commands.runOnce(()-> m_shooter.setStateSpeaker(ShooterState.SPEAKER)));
 
     
-     m_operatorController.povLeft().whileTrue(m_pivot.pivotToAMP()).onTrue(Commands.runOnce(()-> m_shooter.setStateSpeaker(ShooterState.IDLE)));
+    m_operatorController.povLeft().whileTrue(m_pivot.pivotToAMP()).onTrue(Commands.runOnce(()-> m_shooter.setStateSpeaker(ShooterState.IDLE)));
 
     m_operatorController.povRight().whileTrue(m_pivot.pivotToSpeaker()).onTrue(Commands.runOnce(()-> m_shooter.setStateSpeaker(ShooterState.SPEAKER)));
 
     /**
-     * ShOOTING controls
+     * SHOOTING controls
      * 
      * B BUTTON: Auto aim
      * Y BUTTON: Toggle Shooter State
@@ -213,7 +207,11 @@ public class RobotContainer {
 
     }
 
+  /**
+   * Configure the button bindings for the Operator's Controllor ({@code m_operatorController})
+   */
   private void configureOperatorBindings() {
+    // TODO: Move all the Operator bindings here 
     /*
      * All of the operator controls will go here
      */

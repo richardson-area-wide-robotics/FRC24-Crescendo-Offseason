@@ -69,28 +69,28 @@ public class Intake extends SubsystemBase {
         return m_intakeMotor.get();
     }
 
-    /*
-     * Stop the intake motor
+    /**
+     * Stops the intake motor
      */
     public void stopIntake() {
         m_intakeMotor.stopMotor();
     }
 
-    /*
+    /**
      * Commands the intake to spin in the positive direction - intaking
      */
     public Command intake() {
         return Commands.run(()-> m_intakeMotor.set(IntakeConstants.kIntakeSpeed), this);
     }
 
-    /*
+    /**
      * Commands the intake to spin in the negative direction - outtaking
      */
     public Command outtake() {
         return Commands.run(()-> m_intakeMotor.set(-IntakeConstants.kIntakeSpeed), this);
     }
 
-    /*
+    /**
      * Set the default Command for the subsystem
      */
     public void setDefaultCommand() {
