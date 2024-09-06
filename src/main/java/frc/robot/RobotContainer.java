@@ -17,7 +17,6 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.lib.util.JoystickUtil;
 import frc.robot.Constants.IOConstants;
 import frc.robot.Constants.LockMode;
@@ -247,10 +246,10 @@ public class RobotContainer {
   }
 
   public void setUpAutonomousDashboard(){
-  this.autonomousChooser.setDefaultOption("Shoot back up Basic Auto", m_shootBackUp);
-  this.autonomousChooser.addOption("Two Shoot Basic Auto", m_twoShootBasicAuto);
-  this.autonomousChooser.addOption("Back Up", m_backUp);
-  SmartDashboard.putData("Autonomous Chooser", this.autonomousChooser);
+    this.autonomousChooser.setDefaultOption("Shoot back up Basic Auto", m_shootBackUp);
+    this.autonomousChooser.addOption("Two Shoot Basic Auto", m_twoShootBasicAuto);
+    this.autonomousChooser.addOption("Back Up", m_backUp);
+    SmartDashboard.putData("Autonomous Chooser", this.autonomousChooser);
   }
 
   /**
