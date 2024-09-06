@@ -69,14 +69,11 @@ public class RobotContainer {
     // Configure the trigger bindings
     CommandScheduler.getInstance().getActiveButtonLoop().clear();
     configureDriverBindings();
+    configureOperatorBindings();
     globalEventList();
     launchCommands();
   }
 
-  /**
-   * Configure the button bindings for the Diver's Controllor ({@code m_driverController})
-   */
-  private void configureDriverBindings() {
     // set up for driving controls
     DoubleSupplier moveForward = () -> MathUtil.applyDeadband(
         -m_driverController.getLeftY(), Constants.IOConstants.kControllerDeadband);
@@ -85,6 +82,10 @@ public class RobotContainer {
 
     Lock lockMode = new Lock(m_robotDrive, m_pivot, m_camera, moveForward, moveSideways);
 
+  /**
+   * Configure the button bindings for the Diver's Controllor ({@code m_driverController})
+   */
+  private void configureDriverBindings() {
     // Configure default commands
     /**
      * ---Driving Controls for the driver
@@ -158,10 +159,6 @@ public class RobotContainer {
 
     m_driverController.povRight().whileTrue(m_pivot.pivotToSpeaker()).onTrue(Commands.runOnce(()-> m_shooter.setStateSpeaker(ShooterState.SPEAKER)));
 
-    
-    m_operatorController.povLeft().whileTrue(m_pivot.pivotToAMP()).onTrue(Commands.runOnce(()-> m_shooter.setStateSpeaker(ShooterState.IDLE)));
-
-    m_operatorController.povRight().whileTrue(m_pivot.pivotToSpeaker()).onTrue(Commands.runOnce(()-> m_shooter.setStateSpeaker(ShooterState.SPEAKER)));
 
     /**
      * SHOOTING controls
@@ -173,14 +170,6 @@ public class RobotContainer {
     m_driverController.b().whileTrue(lockMode);
 
     m_driverController
-        .y()
-        .onTrue(Commands.runOnce(() -> {
-          m_shooter.toggleState(ShooterState.SPEAKER);
-        }, m_shooter).andThen(Commands.runOnce(() -> {
-          lockMode.setMode(LockMode.SPEAKER_LOCK_MODE);
-        })));
-    
-    m_operatorController
         .y()
         .onTrue(Commands.runOnce(() -> {
           m_shooter.toggleState(ShooterState.SPEAKER);
@@ -201,19 +190,44 @@ public class RobotContainer {
     m_driverController.povUp().whileTrue(m_climber.climbUp());
     m_driverController.povDown().whileTrue(m_climber.climbDown());
 
-    m_operatorController.povUp().whileTrue(m_climber.climbUp());
-    m_operatorController.povDown().whileTrue(m_climber.climbDown());
-
     }
 
   /**
    * Configure the button bindings for the Operator's Controllor ({@code m_operatorController})
    */
   private void configureOperatorBindings() {
-    // TODO: Move all the Operator bindings here 
-    /*
-     * All of the operator controls will go here
+
+    /**
+     * PIVOT auto commands
+     * 
+     * LEFT D-PAD: Pivot to AMP
+     * RIGHT D-PAD: Pivot to Speaker
      */
+    m_operatorController.povLeft().whileTrue(m_pivot.pivotToAMP()).onTrue(Commands.runOnce(()-> m_shooter.setStateSpeaker(ShooterState.IDLE)));
+    m_operatorController.povRight().whileTrue(m_pivot.pivotToSpeaker()).onTrue(Commands.runOnce(()-> m_shooter.setStateSpeaker(ShooterState.SPEAKER)));
+
+    /**
+     * CLIMBING controls
+     * 
+     * UP D-PAD: Climb up
+     * DOWN D-PAD: Climb down
+     */
+    m_operatorController.povUp().whileTrue(m_climber.climbUp());
+    m_operatorController.povDown().whileTrue(m_climber.climbDown());
+
+
+     /**
+     * SHOOTING controls
+     * 
+     * Y BUTTON: Toggle Shooter State
+     */
+    m_operatorController
+        .y()
+        .onTrue(Commands.runOnce(() -> {
+          m_shooter.toggleState(ShooterState.SPEAKER);
+        }, m_shooter).andThen(Commands.runOnce(() -> {
+          lockMode.setMode(LockMode.SPEAKER_LOCK_MODE);
+        })));
 
   }
 
