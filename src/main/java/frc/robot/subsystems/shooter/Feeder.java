@@ -46,7 +46,7 @@ public class Feeder extends SubsystemBase {
     }
 
     /**
-     * Returns the speed of {@link m_feederMotor}
+     * Returns the speed of {@code m_feederMotor}
      */
     public double getSpeed(){
         return m_feederMotor.get();
@@ -76,7 +76,7 @@ public class Feeder extends SubsystemBase {
 
     /**
      * Method that spins the feeder motor at the given speed
-     * @param speed
+     * @param speed The speed to spin the motor at
      */
     public void spinFeeder(double speed){
         m_feederMotor.set(speed);

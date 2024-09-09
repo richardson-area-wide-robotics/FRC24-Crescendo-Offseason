@@ -39,10 +39,6 @@ import frc.lib.util.SwerveModuleConstants;
 
 public final class Constants {
 
-  public static final class NeoMotorConstants {
-    public static final double kFreeSpeedRpm = 5676;
-  }
-
   public static final class IOConstants {
     public static final int kDriverControllerPort = 0;
     public static final int kOperatorControllerPort = 1;
@@ -215,16 +211,14 @@ public final class Constants {
         kTranslationGains, kRotationGains, kMaxSpeedMetersPerSecond, SwerveDriveConstants.kDriveRadius,
         new ReplanningConfig());
 
-    // Drive base radius in meters. Distance from robot center to furthest module.
+    // Drive base radius in meters. Distance from robot center to the furthest module.
     public static final double kDriveBaseRadius = 0.48;
 
     public static final PIDGains kMovingPIDGains = new PIDGains(0.3, 0, 0.01);
     public static final double offset = 0.00315;
   }
 
-  public static final boolean kCompetitionMode = false;
-
-  public static enum LockMode {
+  public enum LockMode {
     SPEAKER_LOCK_MODE,
     AMP_LOCK_MODE,
     GAMEPIECE_LOCK_MODE,
@@ -260,7 +254,6 @@ public final class Constants {
     public static final Measure<Distance> kShooterWheelRadius = Inches.of(2.0);
     public static final Measure<Velocity<Angle>> kKickerSpeed = RPM.of(300.0);
 
-    public static final int kAmpAngleDegrees = 90;
     public static final Measure<Distance> speakerHeight = Inches.of(79.0);
 
     public static final Measure<Velocity<Distance>> kLaunchSpeedTolerance = MetersPerSecond.of(0.01);
@@ -277,7 +270,7 @@ public final class Constants {
 
     public static final double REL_ENC_CONVERSION = 2.0;
 
-      public static enum ShooterState {
+      public enum ShooterState {
         IDLE, 
         INTAKE,
         OUTTAKE,
@@ -326,6 +319,7 @@ public final class Constants {
     public static final double kPivotUpSpeed = 0.2;
     public static final double kPivotDownSpeed = -0.1;
 
+      /** The direction the pivot is currently moving */
       public enum PivotDirection {
         UP, 
         DOWN,
