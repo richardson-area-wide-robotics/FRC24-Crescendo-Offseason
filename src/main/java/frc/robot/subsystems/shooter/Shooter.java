@@ -153,7 +153,7 @@ public class Shooter extends SubsystemBase {
         // m_shooterLeftMotor.stopMotor();
         // m_shooterRightMotor.stopMotor();
         m_shooterState = ShooterState.IDLE;
-        m_shooterLeftMotor.set(0.1);;
+        m_shooterLeftMotor.set(0.1);
         m_shooterRightMotor.set(0.1);
         m_kickerMotor.set(0.1);
     }

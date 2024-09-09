@@ -326,7 +326,7 @@ public final class Constants {
     public static final double kPivotUpSpeed = 0.2;
     public static final double kPivotDownSpeed = -0.1;
 
-      public static enum PivotDirection {
+      public enum PivotDirection {
         UP, 
         DOWN,
         STOP
@@ -349,11 +349,11 @@ public final class Constants {
       public static final int kIntakeCurrentLimit = 60;
       public static final boolean kIntakeMotorInverted = true;
       public static final double kIntakeSpeed = 1;
-      public static final double kOutakeSpeed = -1;
+      public static final double kOuttakeSpeed = -1;
       public static final IdleMode kIntakeIdleMode = IdleMode.kCoast;
       // public static final int kIntakeSensorPort = 0;
 
-      public static enum IntakeState{
+      public enum IntakeState{
         IDLE, 
         INTAKE,
         OUTTAKE,

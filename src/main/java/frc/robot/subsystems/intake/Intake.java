@@ -87,7 +87,7 @@ public class Intake extends SubsystemBase {
      * Commands the intake to spin in the negative direction - outtaking
      */
     public Command outtake() {
-        return Commands.run(()-> m_intakeMotor.set(-IntakeConstants.kIntakeSpeed), this);
+        return Commands.run(()-> m_intakeMotor.set(IntakeConstants.kOuttakeSpeed), this);
     }
 
     /**
