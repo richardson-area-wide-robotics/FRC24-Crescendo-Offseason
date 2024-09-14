@@ -301,8 +301,8 @@ public final class Constants {
     public static final double kPivotMaxOutput = 1.0;
 
     // Range of values the smart controller will use as a hard stop
-    public static final float kPivotForwardSoftLimit = 0.31f;
-    public static final float kPivotReverseSoftLimit = -0.07f;
+    public static final float kPivotForwardSoftLimit = 0.5f;
+    public static final float kPivotReverseSoftLimit = 0.1f;
 
     // Range that the driver will be allowed to move pivot to
     public static final double kPivotMaxAngle = 0.3;
@@ -316,7 +316,7 @@ public final class Constants {
     public static final Measure<Angle> kPivotPresetRest = Radians.of(0.015);
 
     public static final double kPivotSpeed = 0.2;
-    public static final double kPivotUpSpeed = 0.2;
+    public static final double kPivotUpSpeed = 0.3;
     public static final double kPivotDownSpeed = -0.1;
 
       /** The direction the pivot is currently moving */
