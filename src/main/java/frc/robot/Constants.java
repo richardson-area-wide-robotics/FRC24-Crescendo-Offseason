@@ -331,7 +331,7 @@ public final class Constants {
     public static final class FeederConstants{
       public static final int kFeederCANID = 11;
       public static final int kFeederCurrentLimit = 60;
-      public static final boolean kFeederMotorInverted = false;
+      public static final boolean kFeederMotorInverted = true;
       public static final double kFeederSpeed = 1;
       public static final IdleMode kFeederIdleMode = IdleMode.kBrake;
       public static final int kFeederSensorPort = 0;
