@@ -161,7 +161,7 @@ public class RobotContainer {
     /*
      * SHOOTING controls
      * 
-     * B BUTTON: Auto aim
+     * B BUTTON: Auto Aim
      * Y BUTTON: Toggle Shooter State
      * A BUTTON: Shoot
      */
@@ -178,16 +178,6 @@ public class RobotContainer {
     m_driverController.a().whileTrue(m_feeder.shootNote());
 
 
-    /*
-     * CLIMBING controls
-     * 
-     * UP D-PAD: Climb up
-     * DOWN D-PAD: Climb down
-     */
-    // m_driverController.povUp().whileTrue(m_climber.climbUp());
-    m_driverController.povUp().whileTrue(m_climber.climbUp());
-    m_driverController.povDown().whileTrue(m_climber.climbDown());
-
     }
 
   /**
@@ -196,14 +186,26 @@ public class RobotContainer {
   private void configureOperatorBindings() {
 
     /*
+     * CLIMBING controls
+     * 
+     * LEFT Trigger: Climb up
+     * RIGHT Trigger: Climb down
+     */
+    m_operatorController.leftTrigger().whileTrue(m_climber.climbUp());
+    m_operatorController.rightTrigger().whileTrue(m_climber.climbDown());
+
+
+    /*
      * PIVOT auto commands
      * 
      * LEFT D-PAD: Pivot to AMP
      * RIGHT D-PAD: Pivot to Speaker
+     * UP D-PAD: Pivot to Range
      * DOWN D-PAD: Pivot to Rest
      */
     m_operatorController.povLeft().whileTrue(m_pivot.pivotToAMP()).onTrue(Commands.runOnce(()-> m_shooter.setStateSpeaker(ShooterState.IDLE)));
     m_operatorController.povRight().whileTrue(m_pivot.pivotToSpeaker()).onTrue(Commands.runOnce(()-> m_shooter.setStateSpeaker(ShooterState.SPEAKER)));
+    m_operatorController.povUp().whileTrue(m_pivot.pivotToRange()).onTrue(Commands.runOnce(()-> m_shooter.setStateSpeaker(ShooterState.SPEAKER)));
     m_operatorController.povDown().whileTrue(m_pivot.pivotToRest()).onTrue(Commands.runOnce(()-> m_shooter.setStateSpeaker(ShooterState.IDLE)));
 
      /*

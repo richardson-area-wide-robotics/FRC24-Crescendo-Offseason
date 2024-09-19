@@ -312,6 +312,7 @@ public final class Constants {
     public static final double kPivotPresetAmp = 0.31;
 
     public static final Measure<Angle> kPivotPresetSubwooferv2 = Radians.of(kPivotPresetSubwoofer);
+    public static final Measure<Angle> kPivotPresetRangev2 = Radians.of(0.095);//0.0885 works for second 8 - front
     public static final Measure<Angle> kPivotPresetAmpv2 = Radians.of(kPivotPresetAmp);
     public static final Measure<Angle> kPivotPresetRest = Radians.of(0.015);
 
