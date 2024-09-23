@@ -207,6 +207,7 @@ public class Pivot extends SubsystemBase {
      * Pivots the shooter to a given angle about the axis of the absolute encoder. 
      */
     public void pivotTo(Measure<Angle> angle) {
+        System.out.println("Pivoting to: "+ angle);
         m_setPoint = angle;
         m_PivotPIDController.setReference(angle.in(Radians), ControlType.kPosition);
     }
@@ -227,6 +228,7 @@ public class Pivot extends SubsystemBase {
      * Pivots the shooter to the position where it can score AMP
      */
     public Command pivotToAMP(){
+        System.out.println("Pivoting to AMP");
         return Commands.run(()-> pivotTo(PivotConstants.kPivotPresetAmpv2), this);
     }
 
@@ -234,6 +236,7 @@ public class Pivot extends SubsystemBase {
      * Pivots the shooter to the position where it can score Shooter
      */
     public Command pivotToSpeaker(){
+        System.out.println("Pivoting to Speaker");
         return Commands.run(()-> pivotTo(PivotConstants.kPivotPresetSubwooferv2), this);
     }
 

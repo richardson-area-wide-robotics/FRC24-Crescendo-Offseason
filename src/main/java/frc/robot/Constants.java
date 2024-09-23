@@ -301,15 +301,15 @@ public final class Constants {
     public static final double kPivotMaxOutput = 1.0;
 
     // Range of values the smart controller will use as a hard stop
-    public static final float kPivotForwardSoftLimit = 0.5f;
-    public static final float kPivotReverseSoftLimit = 0.1f;
+    public static final float kPivotForwardSoftLimit = 0.4f;
+    public static final float kPivotReverseSoftLimit = -0.01f;
 
     // Range that the driver will be allowed to move pivot to
     public static final double kPivotMaxAngle = 0.3;
     public static final double kPivotMinAngle = 0.01;
 
-    public static final double kPivotPresetSubwoofer = 0.135;
-    public static final double kPivotPresetAmp = 0.31;
+    public static final double kPivotPresetSubwoofer = 0.28;
+    public static final double kPivotPresetAmp = 0.2;
 
     public static final Measure<Angle> kPivotPresetSubwooferv2 = Radians.of(kPivotPresetSubwoofer);
     public static final Measure<Angle> kPivotPresetRangev2 = Radians.of(0.095);//0.0885 works for second 8 - front

@@ -165,7 +165,7 @@ public class RobotContainer {
      * Y BUTTON: Toggle Shooter State
      * A BUTTON: Shoot
      */
-    m_driverController.b().whileTrue(lockMode);
+    //m_driverController.b().whileTrue(lockMode);
 
     m_driverController
         .y()
