@@ -17,8 +17,8 @@ import frc.robot.Constants.ClimberConstants.ClimberDirection;
 import java.util.function.Supplier;
 
 public class Climber extends SubsystemBase {
-    private CANSparkMax m_climberLeftMotor;
-    private CANSparkMax m_climberRightMotor;
+    private final CANSparkMax m_climberLeftMotor;
+    private final CANSparkMax m_climberRightMotor;
 
     private SparkPIDController m_climberLeftPIDController;
     private SparkPIDController m_climberRightPIDController;
@@ -26,47 +26,54 @@ public class Climber extends SubsystemBase {
     private RelativeEncoder m_climberLeftEncoder;
     private RelativeEncoder m_climberRightEncoder;
 
-    public void climberConfig(CANSparkMax motor, boolean climberLeftSide){
-        motor.restoreFactoryDefaults();
-
-        motor.setIdleMode(ClimberConstants.kClimberIdleMode);
-
-        if(climberLeftSide) {
-            motor.setInverted(ClimberConstants.kClimberLeftInverted);
-            m_climberLeftEncoder = motor.getEncoder();
-            m_climberLeftPIDController = motor.getPIDController();
-            m_climberLeftPIDController.setP(ClimberConstants.kClimberP);
-            m_climberLeftPIDController.setI(ClimberConstants.kClimberI);
-            m_climberLeftPIDController.setD(ClimberConstants.kClimberD);
-        }
-
-        if (!climberLeftSide) { 
-            motor.setInverted(ClimberConstants.kClimberRightInverted);
-            m_climberRightEncoder = motor.getEncoder();
-            m_climberRightPIDController = motor.getPIDController();
-            m_climberRightPIDController.setP(ClimberConstants.kClimberP);
-            m_climberRightPIDController.setI(ClimberConstants.kClimberI);
-            m_climberRightPIDController.setD(ClimberConstants.kClimberD);
-        }
-
-        motor.setSmartCurrentLimit(ClimberConstants.kClimberCurrentLimit);
-
-        motor.enableSoftLimit(SoftLimitDirection.kForward, ClimberConstants.kClimberForwardSoftLimitEnabled);
-        motor.enableSoftLimit(SoftLimitDirection.kReverse, ClimberConstants.kClimberReverseSoftLimitEnabled);
-        motor.setSoftLimit(SoftLimitDirection.kForward, ClimberConstants.kClimberForwardSoftLimit);
-        motor.setSoftLimit(SoftLimitDirection.kReverse, ClimberConstants.kClimberReverseSoftLimit);
-
-        motor.burnFlash();
-    }
-
     public Climber() {
         m_climberLeftMotor = new CANSparkMax(ClimberConstants.kClimberLeftCANID, MotorType.kBrushless);
         m_climberRightMotor = new CANSparkMax(ClimberConstants.kClimberRightCANID, MotorType.kBrushless);
 
-       climberConfig(m_climberLeftMotor, true);
-       climberConfig(m_climberRightMotor, false);
+        climberConfig(m_climberLeftMotor, true);
+        climberConfig(m_climberRightMotor, false);
 
         setDefaultCommand();
+    }
+
+    /**
+     * Configures a CANSparkMax motor for the climber.
+     *
+     * @param motor          the motor to configure
+     * @param climberLeftSide true if configuring the left motor, false if right
+     */
+    private void climberConfig(CANSparkMax motor, boolean climberLeftSide) {
+        motor.restoreFactoryDefaults();
+        motor.setIdleMode(ClimberConstants.kClimberIdleMode);
+        motor.setSmartCurrentLimit(ClimberConstants.kClimberCurrentLimit);
+        motor.enableSoftLimit(SoftLimitDirection.kForward, ClimberConstants.kClimberForwardSoftLimitEnabled);
+        motor.enableSoftLimit(SoftLimitDirection.kReverse, ClimberConstants.kClimberReverseSoftLimitEnabled);
+        motor.setSoftLimit(SoftLimitDirection.kForward, ClimberConstants.kClimberForwardSoftLimit);
+        motor.setSoftLimit(SoftLimitDirection.kReverse, ClimberConstants.kClimberReverseSoftLimit);
+        motor.burnFlash();
+
+        if (climberLeftSide) {
+            motor.setInverted(ClimberConstants.kClimberLeftInverted);
+            m_climberLeftEncoder = motor.getEncoder();
+            m_climberLeftPIDController = motor.getPIDController();
+            configurePIDController(m_climberLeftPIDController);
+        } else {
+            motor.setInverted(ClimberConstants.kClimberRightInverted);
+            m_climberRightEncoder = motor.getEncoder();
+            m_climberRightPIDController = motor.getPIDController();
+            configurePIDController(m_climberRightPIDController);
+        }
+    }
+
+    /**
+     * Configures the PID controller for the climber motors.
+     *
+     * @param pidController the PID controller to configure
+     */
+    private void configurePIDController(SparkPIDController pidController) {
+        pidController.setP(ClimberConstants.kClimberP);
+        pidController.setI(ClimberConstants.kClimberI);
+        pidController.setD(ClimberConstants.kClimberD);
     }
 
     @Override
@@ -75,38 +82,31 @@ public class Climber extends SubsystemBase {
     }
 
     /**
-     * Level the robot (to roll = 0 degrees) using a climber
-     * @param rollSupplier
+     * Levels the robot (to roll = 0 degrees) using the climber.
+     *
+     * @param rollSupplier a supplier providing the current roll angle
      */
     public void level(Supplier<Measure<Angle>> rollSupplier) {
-        // only manipulate one side of the climber at a time
         boolean useLeft = rollSupplier.get().in(Degrees) > 0;
         while (Math.abs(rollSupplier.get().in(Degrees)) > ClimberConstants.kRollTolerance.in(Degrees)) {
             if (rollSupplier.get().in(Degrees) > 0) {
-                if (useLeft) {
-                    m_climberLeftMotor.set(ClimberConstants.kLevelSpeed);
-                } else {
-                    m_climberRightMotor.set(-ClimberConstants.kLevelSpeed);
-                }
-            } else if (rollSupplier.get().in(Degrees) < 0) {
-                if (useLeft) {
-                    m_climberLeftMotor.set(-ClimberConstants.kLevelSpeed);
-                } else {
-                    m_climberRightMotor.set(ClimberConstants.kLevelSpeed);
-                }
+                setMotorSpeed(useLeft, ClimberConstants.kLevelSpeed);
+            } else {
+                setMotorSpeed(useLeft, -ClimberConstants.kLevelSpeed);
             }
         }
     }
 
-    public void setLeftDirection(ClimberDirection direction) {
-        switch (direction) {
-            case UP:
-                setLeftSpeed(ClimberConstants.kClimbSpeed);
-                break;
-            case DOWN:
-                setLeftSpeed(-ClimberConstants.kClimbSpeed);
-                break;
+    private void setMotorSpeed(boolean useLeft, double speed) {
+        if (useLeft) {
+            m_climberLeftMotor.set(speed);
+        } else {
+            m_climberRightMotor.set(speed);
         }
+    }
+
+    public void setLeftDirection(ClimberDirection direction) {
+        setLeftSpeed(direction == ClimberDirection.UP ? ClimberConstants.kClimbSpeed : -ClimberConstants.kClimbSpeed);
     }
 
     public void setLeftSpeed(double speed) {
@@ -114,14 +114,7 @@ public class Climber extends SubsystemBase {
     }
 
     public void setRightDirection(ClimberDirection direction) {
-        switch (direction) {
-            case UP:
-                setRightSpeed(ClimberConstants.kClimbSpeed);
-                break;
-            case DOWN:
-                setRightSpeed(-ClimberConstants.kClimbSpeed);
-                break;
-        }
+        setRightSpeed(direction == ClimberDirection.UP ? ClimberConstants.kClimbSpeed : -ClimberConstants.kClimbSpeed);
     }
 
     public void setRightSpeed(double speed) {
@@ -129,14 +122,7 @@ public class Climber extends SubsystemBase {
     }
 
     public void setDirection(ClimberDirection direction) {
-        switch (direction) {
-            case UP:
-                setSpeed(ClimberConstants.kClimbSpeed);
-                break;
-            case DOWN:
-                setSpeed(-ClimberConstants.kClimbSpeed);
-                break;
-        }
+        setSpeed(direction == ClimberDirection.UP ? ClimberConstants.kClimbSpeed : -ClimberConstants.kClimbSpeed);
     }
 
     public void setSpeed(double speed) {
@@ -149,10 +135,10 @@ public class Climber extends SubsystemBase {
         m_climberRightMotor.stopMotor();
     }
 
-    /*
-     * Defualt command for the climber - stops the climber motors
+    /**
+     * Sets the default command for the climber to stop the climber motors.
      */
-    public void setDefaultCommand() {
+    private void setDefaultCommand() {
         super.setDefaultCommand(Commands.run(this::stop, this));
     }
 

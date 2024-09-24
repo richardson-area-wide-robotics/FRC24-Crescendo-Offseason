@@ -19,6 +19,7 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.PivotConstants;
 import frc.robot.Constants.PivotConstants.PivotDirection;
+import frc.utils.Logger;
 
 public class Pivot extends SubsystemBase {
 
@@ -207,7 +208,7 @@ public class Pivot extends SubsystemBase {
      * Pivots the shooter to a given angle about the axis of the absolute encoder. 
      */
     public void pivotTo(Measure<Angle> angle) {
-        System.out.println("Pivoting to: "+ angle);
+        Logger.log("Pivoting to: "+ angle);
         m_setPoint = angle;
         m_PivotPIDController.setReference(angle.in(Radians), ControlType.kPosition);
     }
@@ -228,7 +229,7 @@ public class Pivot extends SubsystemBase {
      * Pivots the shooter to the position where it can score AMP
      */
     public Command pivotToAMP(){
-        System.out.println("Pivoting to AMP");
+        Logger.log("Pivoting to AMP");
         return Commands.run(()-> pivotTo(PivotConstants.kPivotPresetAmpv2), this);
     }
 
@@ -236,10 +237,13 @@ public class Pivot extends SubsystemBase {
      * Pivots the shooter to the position where it can score Shooter
      */
     public Command pivotToSpeaker(){
-        System.out.println("Pivoting to Speaker");
+        Logger.log("Pivoting to Speaker");
         return Commands.run(()-> pivotTo(PivotConstants.kPivotPresetSubwooferv2), this);
     }
 
+    /**
+     * Pivots the shooter to the position where it can score Shooter, but farther away
+     */
     public Command pivotToRange(){
         return Commands.run(()-> pivotTo(PivotConstants.kPivotPresetRangev2), this);
     }
