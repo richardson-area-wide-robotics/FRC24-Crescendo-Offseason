@@ -229,7 +229,6 @@ public class Pivot extends SubsystemBase {
      * Pivots the shooter to the position where it can score AMP
      */
     public Command pivotToAMP(){
-        Logger.log("Pivoting to AMP");
         return Commands.run(()-> pivotTo(PivotConstants.kPivotPresetAmpv2), this);
     }
 
@@ -237,7 +236,6 @@ public class Pivot extends SubsystemBase {
      * Pivots the shooter to the position where it can score Shooter
      */
     public Command pivotToSpeaker(){
-        Logger.log("Pivoting to Speaker");
         return Commands.run(()-> pivotTo(PivotConstants.kPivotPresetSubwooferv2), this);
     }
 
