@@ -32,29 +32,6 @@ public class Intake extends SubsystemBase {
     this.setDefaultCommand();
     }
 
-    @Override
-    public void periodic() {
-        // This method will be called once per scheduler run
-        // m_speedEntry.setDouble(getSpeed());
-        // m_currentEntry.setDouble(getCurrent());
-
-        // switch (m_intakeState) {
-        //     case IDLE:
-        //       idle();
-        //       break;
-        //     case INTAKE:
-        //       intake();
-        //       break;
-        //     case OUTTAKE:
-        //       outtake();
-        //       break;
-        //     default:
-        //       break;
-        //   }
-
-        // m_stateEntry.setString(m_intakeState.toString());
-    }
-
     /**
      * Returns the output current of the motor
      */
@@ -80,6 +57,7 @@ public class Intake extends SubsystemBase {
      * Commands the intake to spin in the positive direction - intaking
      */
     public Command intake() {
+        m_intakeState = IntakeState.INTAKE;
         return Commands.run(()-> m_intakeMotor.set(IntakeConstants.kIntakeSpeed), this);
     }
 
@@ -87,6 +65,7 @@ public class Intake extends SubsystemBase {
      * Commands the intake to spin in the negative direction - outtaking
      */
     public Command outtake() {
+        m_intakeState = IntakeState.OUTTAKE;
         return Commands.run(()-> m_intakeMotor.set(IntakeConstants.kOuttakeSpeed), this);
     }
 
@@ -94,6 +73,7 @@ public class Intake extends SubsystemBase {
      * Set the default Command for the subsystem
      */
     public void setDefaultCommand() {
+        m_intakeState = IntakeState.IDLE;
         setDefaultCommand(new RunCommand(this::stopIntake, this));
     }
     

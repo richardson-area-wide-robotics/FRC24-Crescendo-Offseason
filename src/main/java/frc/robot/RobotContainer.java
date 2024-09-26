@@ -6,7 +6,6 @@ package frc.robot;
 
 import com.kauailabs.navx.frc.AHRS;
 import com.pathplanner.lib.commands.PathPlannerAuto;
-import com.revrobotics.CANSparkBase.IdleMode;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.XboxController;
@@ -70,7 +69,6 @@ public class RobotContainer {
     CommandScheduler.getInstance().getActiveButtonLoop().clear();
     configureDriverBindings();
     configureOperatorBindings();
-    globalEventList();
     launchCommands();
   }
 
@@ -110,9 +108,7 @@ public class RobotContainer {
 
     m_driverController
         .rightStick()
-        .onTrue(Commands.runOnce(() -> {
-          m_robotDrive.zeroHeading();
-        }, m_robotDrive));
+        .onTrue(Commands.runOnce(m_robotDrive::zeroHeading, m_robotDrive));
 
     /*
      * INTAKE and FEEDER controls
@@ -223,17 +219,6 @@ public class RobotContainer {
 
   }
 
-  /** Run a function at the start of auton. */
-  public void autonInit() {
-    // m_robotDrive.calibrateGyro();
-    // m_robotDrive.stop();
-    this.globalEventList();
-  }
-
-  /** Creates the Global event list for the autonomous paths */
-  public void globalEventList() {
-  }
-
   public void getRumble(){
     if(m_feeder.hasNote()){
       m_driverControllerSP.setRumble(RumbleType.kLeftRumble, 0.1);
@@ -295,15 +280,6 @@ public class RobotContainer {
     // SmartDashboard.putNumber("filtered PoseX", m_robotDrive.getPose().getX());
     // SmartDashboard.putNumber("filtered PoseY", m_robotDrive.getPose().getY());
     
-  }
-
-  /**
-   * Sets the idle mode for the arm and intake joints.
-   * 
-   * Used to make the robot arm easier to move when disabled
-   */
-  public void setIdleMode(IdleMode idleMode) {
-
   }
 
   /** Run a function during autonomous to get run time of autonomous. */

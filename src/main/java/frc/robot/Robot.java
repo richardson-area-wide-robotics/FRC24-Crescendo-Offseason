@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.utils.Logger;
 
 /**
  * Ran by {@link Main}, performs all the initialization
@@ -56,7 +57,9 @@ public class Robot extends TimedRobot {
 
   /** This function is called once each time the robot enters Disabled mode. */
   @Override
-  public void disabledInit() {}
+  public void disabledInit() {
+    Logger.log("Bye Bye!");
+  }
 
   @Override
   public void disabledPeriodic() {}
@@ -82,7 +85,7 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during autonomous. */
   @Override
   public void autonomousPeriodic() {
-    
+      m_robotContainer.autonPeriodic();
   }
 
   @Override

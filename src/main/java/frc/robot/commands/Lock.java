@@ -84,49 +84,23 @@ public class Lock extends Command {
         Optional<Alliance> alliance = DriverStation.getAlliance();
         if (alliance.isPresent()) {
             if (alliance.get() == DriverStation.Alliance.Red) {
-                switch (this.mode) {
-                    case SPEAKER_LOCK_MODE: {
-                        return 4;
-                    }
-                    case AMP_LOCK_MODE: {
-                        return 5;
-                    }
-                    case TRAP_1: {
-                        return 11;
-                    }
-                    case TRAP_2: {
-                        return 12;
-                    }
-                    case TRAP_3: {
-                        return 13;
-                    }
-                    case GAMEPIECE_LOCK_MODE:
-                    default: {
-                        return -1;
-                    }
-                }
+                return switch (this.mode) {
+                    case SPEAKER_LOCK_MODE -> 4;
+                    case AMP_LOCK_MODE -> 5;
+                    case TRAP_1 -> 11;
+                    case TRAP_2 -> 12;
+                    case TRAP_3 -> 13;
+                    default -> -1;
+                };
             } else {
-                switch (this.mode) {
-                    case SPEAKER_LOCK_MODE: {
-                        return 7;
-                    }
-                    case AMP_LOCK_MODE: {
-                        return 6;
-                    }
-                    case TRAP_1: {
-                        return 14;
-                    }
-                    case TRAP_2: {
-                        return 15;
-                    }
-                    case TRAP_3: {
-                        return 16;
-                    }
-                    case GAMEPIECE_LOCK_MODE:
-                    default: {
-                        return -1;
-                    }
-                }
+                return switch (this.mode) {
+                    case SPEAKER_LOCK_MODE -> 7;
+                    case AMP_LOCK_MODE -> 6;
+                    case TRAP_1 -> 14;
+                    case TRAP_2 -> 15;
+                    case TRAP_3 -> 16;
+                    default -> -1;
+                };
             }
         }
 

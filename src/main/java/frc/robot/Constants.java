@@ -261,8 +261,11 @@ public final class Constants {
     public static final boolean pivotRightMotorInverted = true;
 
     // TODO: Tune these values for the pivot please
+    /** The Proportional Gain for the pivot*/
     public static final double kPivotP = 4.0;
+    /** The Integral Gain for the pivot*/
     public static final double kPivotI = 0.0001;
+    /** The Derivative Gain for the pivot*/
     public static final double kPivotD = 0.5;
     public static final boolean kPivotPositionPIDWrappingEnabled = false;
     public static final double kPivotMinOutput = -1.0;

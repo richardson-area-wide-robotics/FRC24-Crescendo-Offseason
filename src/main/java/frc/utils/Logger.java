@@ -7,7 +7,7 @@ import edu.wpi.first.hal.HALUtil;
  */
 public class Logger {
 
-    private static int teamNumber = HALUtil.getTeamNumber();
+    private static final int teamNumber = HALUtil.getTeamNumber();
 
     /**
      * Prints a log message to the console.
