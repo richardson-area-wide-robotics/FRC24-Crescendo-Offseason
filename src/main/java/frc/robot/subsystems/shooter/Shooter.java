@@ -109,7 +109,6 @@ public class Shooter extends SubsystemBase {
                 outtake();
                 break;
             case SPEAKER:
-                // Commands.run(()-> speakerMode());
                 speakerMode();
                 break;
             case AMP:

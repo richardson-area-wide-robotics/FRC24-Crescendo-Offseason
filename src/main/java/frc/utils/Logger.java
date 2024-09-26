@@ -15,7 +15,7 @@ public class Logger {
      * @param input The message to be logged.
      */
     public static void log(String input){
-        System.out.println("[ " + teamNumber + " LOG]: " + input);
+        System.out.println("[" + teamNumber + " LOG]: " + input);
     }
 
     /**
