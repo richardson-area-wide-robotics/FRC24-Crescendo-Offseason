@@ -92,6 +92,11 @@ public class Climber extends SubsystemBase {
         }
     }
 
+    /**Sets the speed of the climbers motors
+     * 
+     * @param useLeft If we are using the left motor
+     * @param speed The speed of the motor
+     */
     private void setMotorSpeed(boolean useLeft, double speed) {
         if (useLeft) {
             m_climberLeftMotor.set(speed);

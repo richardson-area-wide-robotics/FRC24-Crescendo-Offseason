@@ -275,8 +275,8 @@ public final class Constants {
     public static final float kPivotForwardSoftLimit = 0.4f;
     public static final float kPivotReverseSoftLimit = -0.01f;
 
-    public static final double kPivotPresetSubwoofer = 0.28;
-    public static final double kPivotPresetAmp = 0.2;
+    public static final double kPivotPresetSubwoofer = 0.2;
+    public static final double kPivotPresetAmp =  0.28;
 
     public static final Measure<Angle> kPivotPresetSubwooferv2 = Radians.of(kPivotPresetSubwoofer);
     public static final Measure<Angle> kPivotPresetRangev2 = Radians.of(0.095);//0.0885 works for second 8 - front
