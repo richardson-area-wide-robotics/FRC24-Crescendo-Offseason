@@ -262,7 +262,7 @@ public final class Constants {
 
     // TODO: Tune these values for the pivot please
     /** The Proportional Gain for the pivot*/
-    public static final double kPivotP = 4.0;
+    public static final double kPivotP = 3.9;
     /** The Integral Gain for the pivot*/
     public static final double kPivotI = 0.0001;
     /** The Derivative Gain for the pivot*/
