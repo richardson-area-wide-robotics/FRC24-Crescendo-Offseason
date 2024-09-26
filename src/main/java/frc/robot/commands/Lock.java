@@ -64,12 +64,6 @@ public class Lock extends Command {
         this.isCanceled = false;
     }
 
-    @Override
-    public boolean isFinished() {
-        // return this.isCanceled;
-        return false;
-    }
-
     public void setMode(LockMode mode) {
         this.mode = mode;
     }
@@ -107,8 +101,8 @@ public class Lock extends Command {
         return -1;
     }
 
-    // This sets the yawRate to circle the desired object while maintaning driver
-    // controll of motion
+    // This sets the yawRate to circle the desired object while maintaining driver
+    // control of motion
     @Override
     public void execute() {
 

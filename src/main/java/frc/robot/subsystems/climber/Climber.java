@@ -76,11 +76,6 @@ public class Climber extends SubsystemBase {
         pidController.setD(ClimberConstants.kClimberD);
     }
 
-    @Override
-    public void periodic() {
-        // This method will be called once per scheduler run
-    }
-
     /**
      * Levels the robot (to roll = 0 degrees) using the climber.
      *

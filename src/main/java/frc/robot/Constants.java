@@ -296,7 +296,7 @@ public final class Constants {
     }
 
     /** Feeder Constants */
-    public static final class FeederConstants{
+    public static final class FeederConstants {
       public static final int kFeederCANID = 11;
       public static final int kFeederCurrentLimit = 60;
       public static final boolean kFeederMotorInverted = true;
@@ -305,7 +305,7 @@ public final class Constants {
     }
 
     /** Intake Constants */
-    public static final class IntakeConstants{
+    public static final class IntakeConstants {
       public static final int kIntakeCANID = 15;
       public static final int kIntakeCurrentLimit = 60;
       public static final boolean kIntakeMotorInverted = true;
