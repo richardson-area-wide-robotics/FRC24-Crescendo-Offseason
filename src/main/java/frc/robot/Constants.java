@@ -7,11 +7,9 @@ package frc.robot;
 import edu.wpi.first.units.Distance;
 import static edu.wpi.first.units.Units.*;
 import edu.wpi.first.units.Measure;
-import edu.wpi.first.units.Velocity;
 import edu.wpi.first.units.Angle;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
-import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
 
 import com.revrobotics.CANSparkBase;
@@ -20,7 +18,6 @@ import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
 import com.pathplanner.lib.util.PIDConstants;
 import com.pathplanner.lib.util.ReplanningConfig;
 import edu.wpi.first.math.controller.PIDController;
-import frc.lib.controller.FFGains;
 import frc.lib.controller.PIDGains;
 import frc.lib.util.SwerveModuleConstants;
 
@@ -36,7 +33,6 @@ import frc.lib.util.SwerveModuleConstants;
  * wherever the
  * constants are needed, to reduce verbosity.
  */
-
 public final class Constants {
 
   public static final class IOConstants {
@@ -163,14 +159,12 @@ public final class Constants {
     public static final double kTurningEncoderPositionPIDMaxInput = kTurningEncoderPositionFactor; // radians
 
     public static final PIDGains kDrivingPIDGains = new PIDGains(0.04, 0, 0); // TODO: tune values for the driving motor
-    public static final FFGains kDrivingFFGains = new FFGains(0, 0, 0);
     public static final double kDrivingFF = 1.0 / kDriveWheelFreeSpeedRps;
     public static final double kDrivingMinOutput = -1.0;
     public static final double kDrivingMaxOutput = 1.0;
 
     // TODO: tune values for the turning motor
     public static final PIDGains kTurningPIDGains = new PIDGains(3.15, 0, 0.35);
-    public static final FFGains kTurningFFGains = new FFGains(0, 0, 0);
     // TODO: tune values for Feed Forward
     public static final double kTurningFF = 0.0;
     public static final double kTurningMinOutput = -1.0;
@@ -190,13 +184,6 @@ public final class Constants {
 
   public static final class AutoConstants {
     public static final double kMaxSpeedMetersPerSecond = 3.0;
-    public static final double kMaxAccelerationMetersPerSecondSquared = 3.0;
-    public static final double kMaxAngularSpeedRadiansPerSecond = Math.PI;
-    public static final double kMaxAngularSpeedRadiansPerSecondSquared = Math.PI;
-
-    // Constraint for the motion profiled robot angle controller
-    public static final TrapezoidProfile.Constraints kThetaControllerConstraints = new TrapezoidProfile.Constraints(
-        kMaxAngularSpeedRadiansPerSecond, kMaxAngularSpeedRadiansPerSecondSquared);
 
     public static final PIDController kPXController = new PIDController(1.0, 0, 0.35);
     public static final PIDController kPYController = new PIDController(0.001, 0, 0.00075);
@@ -210,12 +197,6 @@ public final class Constants {
     public static final HolonomicPathFollowerConfig kPathFollowerConfig = new HolonomicPathFollowerConfig(
         kTranslationGains, kRotationGains, kMaxSpeedMetersPerSecond, SwerveDriveConstants.kDriveRadius,
         new ReplanningConfig());
-
-    // Drive base radius in meters. Distance from robot center to the furthest module.
-    public static final double kDriveBaseRadius = 0.48;
-
-    public static final PIDGains kMovingPIDGains = new PIDGains(0.3, 0, 0.01);
-    public static final double offset = 0.00315;
   }
 
   public enum LockMode {
@@ -238,25 +219,12 @@ public final class Constants {
     public static final CANSparkBase.IdleMode kShooterMotorIdleMode = IdleMode.kCoast;
     public static final CANSparkBase.IdleMode kKickerMotorIdleMode = IdleMode.kCoast;
 
-    public static final double kShooterP = 0.0007;
-    public static final double kShooterI = 0.0;
-    public static final double kShooterD = 0.001;
-
-    public static final double kKickerP = 0.0;
-    public static final double kKickerI = 0.0;
-    public static final double kKickerD = 0.0;
-
     public static final boolean kKickerMotorInvert = false;
     public static final boolean kShooterLeftMotorInverted = true;
     public static final boolean kShooterRightMotorInverted = false;
 
-    public static final Measure<Distance> kHorizontalNoteCompression = Inches.of(12.0);
-    public static final Measure<Distance> kShooterWheelRadius = Inches.of(2.0);
-    public static final Measure<Velocity<Angle>> kKickerSpeed = RPM.of(300.0);
-
     public static final Measure<Distance> speakerHeight = Inches.of(79.0);
 
-    public static final Measure<Velocity<Distance>> kLaunchSpeedTolerance = MetersPerSecond.of(0.01);
     public static final double RIGHT_PERCENT_OF_LEFT = 0.55;
     public static final double PID_ACTIVE_RANGE = 750.0;
     public static final double RAMP_SPEED = 0.95;
@@ -304,10 +272,6 @@ public final class Constants {
     public static final float kPivotForwardSoftLimit = 0.4f;
     public static final float kPivotReverseSoftLimit = -0.01f;
 
-    // Range that the driver will be allowed to move pivot to
-    public static final double kPivotMaxAngle = 0.3;
-    public static final double kPivotMinAngle = 0.01;
-
     public static final double kPivotPresetSubwoofer = 0.28;
     public static final double kPivotPresetAmp = 0.2;
 
@@ -334,7 +298,6 @@ public final class Constants {
       public static final int kFeederCurrentLimit = 60;
       public static final boolean kFeederMotorInverted = true;
       public static final double kFeederSpeed = 1;
-      public static final IdleMode kFeederIdleMode = IdleMode.kBrake;
       public static final int kFeederSensorPort = 0;
     }
 
@@ -346,7 +309,6 @@ public final class Constants {
       public static final double kIntakeSpeed = 1;
       public static final double kOuttakeSpeed = -1;
       public static final IdleMode kIntakeIdleMode = IdleMode.kCoast;
-      // public static final int kIntakeSensorPort = 0;
 
       public enum IntakeState{
         IDLE, 
