@@ -18,24 +18,6 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class Swerve extends SubsystemBase {
-  public enum ModuleLocation {
-    frontLeft(0),
-    frontRight(1),
-    backLeft(2),
-    backRight(3);
-
-    public final int value;
-    private static final ModuleLocation[] m_mapping =
-        new ModuleLocation[] {frontLeft, frontRight, backLeft, backRight};
-
-    private ModuleLocation(int v) {
-      this.value = v;
-    }
-
-    public static ModuleLocation fromInt(int v) {
-      return m_mapping[v];
-    }
-  }
   // Robot MAXswerve modules
   private final SwerveModule m_frontLeft;
   private final SwerveModule m_frontRight;
@@ -63,13 +45,14 @@ public class Swerve extends SubsystemBase {
   /**
    * Create a Swerve Drive module
    *
-   * @param frontLeft Swerve Module
-   * @param frontRight Swerve Module
-   * @param rearLeft Swerve Module
-   * @param rearRight Swerve Module
-   * @param kinematics Swerve drive kinematics
-   * @param gyro used for odometry and field centric driving
-   * @param maxSpeed of the wheels used to normalize wheel speeds
+   * @param frontLeft       Front-left swerve module
+   * @param frontRight      Front-right swerve module
+   * @param backLeft        Back-left swerve module
+   * @param backRight       Back-right swerve module
+   * @param kinematics      Swerve drive kinematics
+   * @param modulePositions Array of swerve module positions
+   * @param gyro            The Gyroscope
+   * @param maxSpeed        Max wheel speed
    */
   public Swerve(
       SwerveModule frontLeft,
@@ -88,7 +71,13 @@ public class Swerve extends SubsystemBase {
     m_kinematics = kinematics;
     m_ModulePositions = modulePositions;
     m_maxSpeed = maxSpeed;
-    m_poseEstimator = new SwerveDrivePoseEstimator(kinematics, Rotation2d.fromDegrees(getAngle()), modulePositions, new Pose2d());
+
+    this.m_poseEstimator = new SwerveDrivePoseEstimator(
+            kinematics,
+            Rotation2d.fromDegrees(getAngle()),
+            modulePositions,
+            new Pose2d()
+    );
   }
 
   private ChassisSpeeds m_chassisSpeed = new ChassisSpeeds();

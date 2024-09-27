@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ShooterConstants;
 import frc.robot.Constants.ShooterConstants.ShooterState;
+import frc.utils.MotorUtils;
 
 public class Shooter extends SubsystemBase {
     private final CANSparkFlex m_kickerMotor;
@@ -100,7 +101,7 @@ public class Shooter extends SubsystemBase {
     @Override
     public void periodic() {
         // This method will be called once per scheduler run
-        SmartDashboard.putNumber("Applied output", getSpeed());
+        SmartDashboard.putNumber("Applied output", MotorUtils.getSpeed(m_shooterLeftMotor));
         switch (m_shooterState) {
             case INTAKE:
                 intake();
@@ -157,17 +158,11 @@ public class Shooter extends SubsystemBase {
         m_kickerMotor.set(0.1);
     }
 
-    public double getSpeed(){
-       return m_shooterLeftMotor.getAppliedOutput();
-    }
-
     public void stopAll() {
         m_shooterState = ShooterState.IDLE;
         m_kickerMotor.stopMotor();
         m_shooterLeftMotor.stopMotor();
         m_shooterRightMotor.stopMotor();
-        // m_pivotRightMotor.stopMotor();
-        // m_pivotLeftMotor.stopMotor();
     }
 
     public void intake() {
@@ -185,49 +180,16 @@ public class Shooter extends SubsystemBase {
     }
 
      /**
-     * While called, angles the pivot of the shooter and sets the shooter to the output speed neccissary
+     * While called, angles the pivot of the shooter and sets the shooter to the output speed necessary
      * to score from the bot's distance from the shooter. However, does not shoot the note. 
      */
     private void speakerMode() {
         m_shooterLeftMotor.set(0.6);
         m_shooterRightMotor.set(0.4);
         m_kickerMotor.set(0.75); // TODO: change to constant
-
-        // applySpeed(1.0);
     }
 
-    public void applySpeed(double speed){
-        double leftSpeed = speed;
-        double rightSpeed = speed * ShooterConstants.RIGHT_PERCENT_OF_LEFT;
-
-        if (speed == 0.0) {
-            m_shooterLeftMotor.stopMotor();
-            m_shooterRightMotor.stopMotor();
-            leftPIDActive = false;
-            rightPIDActive = false;
-        } else {
-            double leftDelta = leftSpeed - shooterLeftEncoder.getVelocity();
-            if (Math.abs(leftDelta) < ShooterConstants.PID_ACTIVE_RANGE) {
-                shooterLeftPIDController.setReference(leftSpeed, ControlType.kVelocity, 0, feedforward.calculate(leftSpeed));
-                leftPIDActive = true;
-            } else {
-                m_shooterLeftMotor.set(ShooterConstants.RAMP_SPEED * Math.signum(leftDelta));
-                leftPIDActive = false;
-            }
-
-            double rightDelta = rightSpeed - shooterRightEncoder.getVelocity();
-            if (Math.abs(rightDelta) < ShooterConstants.PID_ACTIVE_RANGE) {
-                shooterRightPIDController.setReference(rightSpeed, ControlType.kVelocity, 0, feedforward.calculate(rightSpeed));
-                rightPIDActive = true;
-            } else {
-                m_shooterRightMotor.set(ShooterConstants.RAMP_SPEED * Math.signum(rightDelta));
-                rightPIDActive = false;
-            }
-        }
-
-        leftTargetSpeed = leftSpeed;
-        rightTargetSpeed = rightSpeed;
+    public CANSparkFlex getShooterLeftMotor(){
+        return m_shooterLeftMotor;
     }
-
-    
 }

@@ -1,6 +1,6 @@
-package frc.lib.util;
+package frc.utils;
 
-public class JoystickUtil {
+public class JoystickUtils {
   public static double squareAxis(double input) {
     return (input * input) * Math.signum(input);
   }

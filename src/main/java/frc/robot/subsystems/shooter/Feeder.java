@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.FunctionalCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.FeederConstants;
+import frc.utils.MotorUtils;
 
 public class Feeder extends SubsystemBase {
     private final CANSparkFlex m_feederMotor;
@@ -46,41 +47,12 @@ public class Feeder extends SubsystemBase {
     }
 
     /**
-     * Returns the speed of {@code m_feederMotor}
-     */
-    public double getSpeed(){
-        return m_feederMotor.get();
-    }
-
-    /**
-     * Returns output current of the motor
-     */
-    public double getCurrent(){
-        return m_feederMotor.getOutputCurrent();
-    }
-
-    /**
-     * Stops the feeder motor
-     */
-    public void idleFeeder(){
-        m_feederMotor.stopMotor();
-    }
-
-    /**
      * @return true if the sensor is blocked 
      * have to invert signal due to the sensor being a break beam sensor
      */
     public boolean hasNote(){
         return !m_sensor.get();
     } 
-
-    /**
-     * Method that spins the feeder motor at the given speed
-     * @param speed The speed to spin the motor at
-     */
-    public void spinFeeder(double speed){
-        m_feederMotor.set(speed);
-    }
 
     /**
      * Method that spins the feeder motor at full positive speed - intaking
@@ -100,7 +72,7 @@ public class Feeder extends SubsystemBase {
      * Sets the default command for the feeder
      */
     public void setDefaultCommand(){
-        super.setDefaultCommand(Commands.run(()-> idleFeeder(), this));
+        super.setDefaultCommand(Commands.run(()-> MotorUtils.stopMotor(m_feederMotor), this));
     }
 
     /**
@@ -110,8 +82,8 @@ public class Feeder extends SubsystemBase {
         return Commands.run(()-> outtake(), this);
     }
 
-    public boolean indicator(boolean note){
-        return hasNote = note;
+    public void setIndicator(boolean note){
+        hasNote = note;
     }
 
     public boolean getIndicator(){
@@ -130,8 +102,8 @@ public class Feeder extends SubsystemBase {
                 intake();
             },
             (interrupted) -> {
-                idleFeeder();
-                indicator(true);
+                MotorUtils.stopMotor(m_feederMotor);
+                setIndicator(true);
 
             },
             () -> {
@@ -153,7 +125,7 @@ public class Feeder extends SubsystemBase {
                 intake();
             },
             (interrupted) -> {
-                idleFeeder();
+                MotorUtils.stopMotor(m_feederMotor);
             },
             () -> {
                 return false;

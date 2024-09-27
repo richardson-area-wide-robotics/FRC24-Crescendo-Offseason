@@ -13,7 +13,7 @@ import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.util.sendable.SendableBuilder;
 import frc.lib.swerve.SwerveModule;
-import frc.lib.util.SwerveModuleConstants;
+import frc.lib.swerve.SwerveModuleConstants;
 import frc.robot.Constants;
 
 public class MAXSwerveModule implements SwerveModule {
@@ -121,7 +121,7 @@ public class MAXSwerveModule implements SwerveModule {
   /**
    * Constructs a MAXSwerveModule and configures the driving and turning motor, encoder, and PID
    * controller. This configuration is specific to the REV MAXSwerve Module built with NEOs, SPARKS
-   * MAX, and a Through Bore Encoder.
+   * MAX, and a Thorough Bore Encoder.
    */
   public MAXSwerveModule(SwerveModuleConstants constants) {
     // create turning and driving motors
