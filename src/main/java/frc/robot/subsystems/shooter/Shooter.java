@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ShooterConstants;
 import frc.robot.Constants.ShooterConstants.ShooterState;
+import frc.utils.Logger;
 
 public class Shooter extends SubsystemBase {
     private final CANSparkFlex m_kickerMotor;
@@ -109,6 +110,7 @@ public class Shooter extends SubsystemBase {
                 outtake();
                 break;
             case SPEAKER:
+                Logger.log("REVING THE SHOOTER!");
                 speakerMode();
                 break;
             case AMP:
