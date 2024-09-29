@@ -136,7 +136,7 @@ public class Shooter extends SubsystemBase {
             Logger.log("Disabling the shooter!");
         } else {
             m_shooterState = state;
-            Logger.log("Enalbing the shooter!");
+            Logger.log("Enabling the shooter!");
         }
     }
 
