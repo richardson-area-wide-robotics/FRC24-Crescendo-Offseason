@@ -14,7 +14,6 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ClimberConstants;
 import frc.robot.Constants.ClimberConstants.ClimberDirection;
-import frc.utils.MotorUtils;
 
 import java.util.function.Supplier;
 
@@ -29,8 +28,8 @@ public class Climber extends SubsystemBase {
     private RelativeEncoder m_climberRightEncoder;
 
     public Climber() {
-        m_climberLeftMotor = new CANSparkMax(ClimberConstants.kClimberLeftCANID, MotorType.kBrushless);
-        m_climberRightMotor = new CANSparkMax(ClimberConstants.kClimberRightCANID, MotorType.kBrushless);
+        this.m_climberLeftMotor = new CANSparkMax(ClimberConstants.kClimberLeftCANID, MotorType.kBrushless);
+        this.m_climberRightMotor = new CANSparkMax(ClimberConstants.kClimberRightCANID, MotorType.kBrushless);
 
         climberConfig(m_climberLeftMotor, true);
         climberConfig(m_climberRightMotor, false);

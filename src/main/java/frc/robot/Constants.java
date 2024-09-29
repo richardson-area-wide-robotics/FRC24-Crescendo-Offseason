@@ -33,7 +33,10 @@ import frc.lib.swerve.SwerveModuleConstants;
  */
 public final class Constants {
 
-  public static final boolean cameraMode = false;
+  public static final class ConfigConstants{
+      public static final boolean cameraAttached = false;
+  }
+
 
   public static final class IOConstants {
     public static final int kDriverControllerPort = 0;

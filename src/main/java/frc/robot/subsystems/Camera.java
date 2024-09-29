@@ -6,7 +6,8 @@ package frc.robot.subsystems;
 
 import java.util.Optional;
 
-import frc.robot.Constants;
+import frc.robot.Constants.ConfigConstants;
+
 import org.photonvision.EstimatedRobotPose;
 import org.photonvision.PhotonCamera;
 import org.photonvision.PhotonPoseEstimator;
@@ -45,7 +46,7 @@ public class Camera extends SubsystemBase {
 
   @Override
   public void periodic() {
-    if(Constants.cameraMode){
+    if(ConfigConstants.cameraAttached) {
       result = camera.getLatestResult();
       Optional<EstimatedRobotPose> newPose = photonPoseEstimator.update(result);
       if (newPose.isPresent()) {

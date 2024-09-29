@@ -43,7 +43,7 @@ public class Swerve extends SubsystemBase {
   private final double m_maxSpeed;
 
   /**
-   * Create a Swerve Drive module
+   * Create the Swerve modules used for driving
    *
    * @param frontLeft       Front-left swerve module
    * @param frontRight      Front-right swerve module
@@ -63,14 +63,14 @@ public class Swerve extends SubsystemBase {
       SwerveModulePosition[] modulePositions,
       AHRS gyro,
       double maxSpeed) {
-    m_frontLeft = frontLeft;
-    m_frontRight = frontRight;
-    m_backLeft = backLeft;
-    m_backRight = backRight;
-    m_gyro = gyro;
-    m_kinematics = kinematics;
-    m_ModulePositions = modulePositions;
-    m_maxSpeed = maxSpeed;
+    this.m_frontLeft = frontLeft;
+    this.m_frontRight = frontRight;
+    this.m_backLeft = backLeft;
+    this.m_backRight = backRight;
+    this.m_gyro = gyro;
+    this.m_kinematics = kinematics;
+    this.m_ModulePositions = modulePositions;
+    this.m_maxSpeed = maxSpeed;
 
     this.m_poseEstimator = new SwerveDrivePoseEstimator(
             kinematics,
@@ -231,10 +231,10 @@ public void driveFieldRelative(ChassisSpeeds fieldRelativeSpeeds){
 
 
   /* These methods will prevent module movement if no command is being executed on the wheels */
-  private void holdModuleRotation(SwerveModule m) {
-    var state = m.getDesiredState();
+  private void holdModuleRotation(SwerveModule module) {
+    var state = module.getDesiredState();
     state.speedMetersPerSecond = 0.0;
-    m.setDesiredState(state);
+    module.setDesiredState(state);
   }
 
   private void holdAllModulesRotation() {
@@ -349,39 +349,4 @@ public void driveFieldRelative(ChassisSpeeds fieldRelativeSpeeds){
   public void resetNavx(){
     m_gyro.reset();
   }
-
-//   /**
-//    * Create a trajectory following command. Note that the beginning and end states of the command
-//    * are not necessarily 0 speed.
-//    *
-//    * @param trajectory PathPlanner trajectory
-//    * @param xController PID Controller for the X direction (left/right)
-//    * @param yController PID Contorller for the Y direction (forward/back)
-//    * @param thetaController Turning PID Controller for rotation (CCW Positive)
-//    * @return Command to be scheduled
-//    */
-//   public Command trajectoryFollowerCommand(
-//     PathPlannerPath trajectory,
-//     Pose2d initialPose,
-//     PIDController xController,
-//     PIDController yController,
-//     PIDController thetaController) {
-//   Command swCommand =
-//       new FollowPathHolonomic(
-//           trajectory,
-//           this::getPose,
-//           this.resetOdometry(initialPose),
-//           this.getChassisSpeeds(),
-//           this.driveRobotRelative(),
-//           new HolonomicPathFollowerConfig(
-//             new PIDConstants(0.0, 0.0,0.0),
-//             new PIDConstants(0.0, 0.0,0.0),
-//             Constants.SwerveDriveConstants.kMaxSpeedMetersPerSecond,
-//             0.0,
-//             new ReplanningConfig()
-//           ),
-//           this);
-//   return new InstantCommand(() -> m_field.getObject("Trajectory").setTrajectory(trajectory))
-//       .alongWith(swCommand);
-// }
 }
