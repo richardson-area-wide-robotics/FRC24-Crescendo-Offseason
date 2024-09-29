@@ -110,7 +110,6 @@ public class Shooter extends SubsystemBase {
                 outtake();
                 break;
             case SPEAKER:
-                Logger.log("REVING THE SHOOTER!");
                 speakerMode();
                 break;
             case AMP:
@@ -134,8 +133,10 @@ public class Shooter extends SubsystemBase {
     public void toggleState(ShooterState state) {
         if (m_shooterState == state) {
             m_shooterState = ShooterState.IDLE;
+            Logger.log("Disabling the shooter!");
         } else {
             m_shooterState = state;
+            Logger.log("Enalbing the shooter!");
         }
     }
 
