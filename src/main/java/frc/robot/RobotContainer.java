@@ -208,6 +208,7 @@ public class RobotContainer {
      * SHOOTING controls
      * 
      * Y BUTTON: Toggle Shooter State
+     * A BUTTON: SHOOT!
      */
     m_operatorController
         .y()
@@ -216,6 +217,9 @@ public class RobotContainer {
         }, m_shooter).andThen(Commands.runOnce(() -> {
           lockMode.setMode(LockMode.SPEAKER_LOCK_MODE);
         })));
+
+        m_operatorController.a().whileTrue(m_feeder.shootNote());
+
 
   }
 
