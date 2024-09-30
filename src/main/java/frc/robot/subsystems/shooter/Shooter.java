@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ShooterConstants;
 import frc.robot.Constants.ShooterConstants.ShooterState;
+import frc.utils.Logger;
 import frc.utils.MotorUtils;
 
 public class Shooter extends SubsystemBase {
@@ -133,8 +134,10 @@ public class Shooter extends SubsystemBase {
     public void toggleState(ShooterState state) {
         if (m_shooterState == state) {
             m_shooterState = ShooterState.IDLE;
+            Logger.log("Disabling the shooter!");
         } else {
             m_shooterState = state;
+            Logger.log("Enabling the shooter!");
         }
     }
 

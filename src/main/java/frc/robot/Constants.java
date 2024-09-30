@@ -276,7 +276,7 @@ public final class Constants {
 
     // Range of values the smart controller will use as a hard stop
     public static final float kPivotForwardSoftLimit = 0.4f;
-    public static final float kPivotReverseSoftLimit = 0.001f;
+    public static final float kPivotReverseSoftLimit = 0.0f;
 
     public static final double kPivotPresetSubwoofer = 0.2;
     public static final double kPivotPresetAmp =  0.15;

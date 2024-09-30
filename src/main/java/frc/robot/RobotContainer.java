@@ -188,8 +188,8 @@ public class RobotContainer {
      * LEFT Trigger: Climb up
      * RIGHT Trigger: Climb down
      */
-    m_operatorController.leftTrigger().whileTrue(m_climber.climbUp());
-    m_operatorController.rightTrigger().whileTrue(m_climber.climbDown());
+    //m_operatorController.leftTrigger().whileTrue(m_climber.climbUp());
+    //m_operatorController.rightTrigger().whileTrue(m_climber.climbDown());
 
 
     /*
@@ -209,6 +209,7 @@ public class RobotContainer {
      * SHOOTING controls
      * 
      * Y BUTTON: Toggle Shooter State
+     * A BUTTON: SHOOT!
      */
     m_operatorController
         .y()
@@ -218,6 +219,29 @@ public class RobotContainer {
           lockMode.setMode(LockMode.SPEAKER_LOCK_MODE);
         })));
 
+        m_operatorController.a().whileTrue(m_feeder.shootNote());
+       
+    /*
+     * SHOOTER PIVOT controls 
+     * 
+     * LEFT TRIGGER: Pivot up
+     * RIGHT TRIGGER: Pivot down
+     */
+        m_operatorController
+        .leftTrigger()
+        .whileTrue(Commands.runEnd(() -> {
+          m_pivot.pivot(PivotDirection.UP);
+        }, () -> {
+          m_pivot.pivot(PivotDirection.STOP);
+        }, m_pivot));
+
+    m_operatorController
+        .rightTrigger()
+        .whileTrue(Commands.runEnd(() -> {
+          m_pivot.pivot(PivotDirection.DOWN);
+        }, () -> {
+          m_pivot.pivot(PivotDirection.STOP);
+        }, m_pivot));
   }
 
   public void getRumble() {
