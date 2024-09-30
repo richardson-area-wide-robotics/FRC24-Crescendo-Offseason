@@ -43,8 +43,8 @@ public class Lock extends Command {
 
     /**
      *
-     * @param drive    passes controller
-     * @param camera   passes camera
+     * @param drive    The drive subsytem to use
+     * @param camera   The camera to use
      * @param forward  passes y translation
      * @param sideways passes x translation
      */
@@ -74,7 +74,6 @@ public class Lock extends Command {
 
     // Returns -1 when trying to intake
     private int getAprilTagForModeAndAlliance() {
-
         Optional<Alliance> alliance = DriverStation.getAlliance();
         if (alliance.isPresent()) {
             if (alliance.get() == DriverStation.Alliance.Red) {

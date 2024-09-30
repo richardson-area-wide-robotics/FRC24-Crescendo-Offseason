@@ -16,7 +16,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import frc.lib.util.JoystickUtil;
+import frc.utils.JoystickUtils;
 import frc.robot.Constants.IOConstants;
 import frc.robot.Constants.LockMode;
 import frc.robot.Constants.PivotConstants.PivotDirection;
@@ -33,6 +33,7 @@ import java.util.function.DoubleSupplier;
 import frc.robot.commands.Lock;
 import frc.robot.subsystems.Camera;
 import frc.robot.subsystems.climber.Climber;
+import frc.utils.MotorUtils;
 
 /**
  * This class is where the bulk of the robot is declared. Very little robot logic should actually 
@@ -94,7 +95,7 @@ public class RobotContainer {
             () -> m_robotDrive.drive(
                 moveForward.getAsDouble(),
                 moveSideways.getAsDouble(),
-                JoystickUtil.squareAxis(
+                JoystickUtils.squareAxis(
                     -m_driverController.getRightX()),
                 true),
             m_robotDrive));
@@ -243,19 +244,19 @@ public class RobotContainer {
         }, m_pivot));
   }
 
-  public void getRumble(){
-    if(m_feeder.hasNote()){
+  public void getRumble() {
+    if (m_feeder.hasNote()){
       m_driverControllerSP.setRumble(RumbleType.kLeftRumble, 0.1);
     }
     else if (!m_feeder.hasNote()){
       m_driverControllerSP.setRumble(RumbleType.kLeftRumble, 0);
     }
 
-    if (m_shooter.getSpeed() > 0.5){
+    if (MotorUtils.getSpeed(m_shooter.getShooterLeftMotor()) > 0.5){
       m_driverControllerSP.setRumble(RumbleType.kRightRumble, 0.2);
     }
 
-    else if (m_shooter.getSpeed() < 0.5){
+    else if (MotorUtils.getSpeed(m_shooter.getShooterLeftMotor()) < 0.5){
       m_driverControllerSP.setRumble(RumbleType.kRightRumble, 0);
     }
   }

@@ -19,13 +19,11 @@ import com.pathplanner.lib.util.PIDConstants;
 import com.pathplanner.lib.util.ReplanningConfig;
 import edu.wpi.first.math.controller.PIDController;
 import frc.lib.controller.PIDGains;
-import frc.lib.util.SwerveModuleConstants;
+import frc.lib.swerve.SwerveModuleConstants;
 
 /**
- * The Constants class provides a convenient place for teams to hold robot-wide
- * numerical or boolean
- * constants. This class should not be used for any other purpose. All constants
- * should be declared
+ * The Constants class holds robot-wide numerical or boolean constants.
+ * This class should not be used for any other purpose. All constants should be declared
  * globally (i.e. public static). Do not put anything functional in this class.
  *
  * <p>
@@ -35,7 +33,10 @@ import frc.lib.util.SwerveModuleConstants;
  */
 public final class Constants {
 
-  public static final boolean cameraMode = false;
+  public static final class ConfigConstants{
+      public static final boolean cameraAttached = false;
+  }
+
 
   public static final class IOConstants {
     public static final int kDriverControllerPort = 0;

@@ -20,6 +20,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.PivotConstants;
 import frc.robot.Constants.PivotConstants.PivotDirection;
 import frc.utils.Logger;
+import frc.utils.MotorUtils;
 
 public class Pivot extends SubsystemBase {
 
@@ -51,7 +52,7 @@ public class Pivot extends SubsystemBase {
      * 
      * @param motor
      */
-    public void PivotConfig(CANSparkMax motor, AbsoluteEncoder enc, boolean leader) {
+    public void pivotConfig(CANSparkMax motor, AbsoluteEncoder enc, boolean leader) {
         // Restore the motor to factory settings before any changes was made
         motor.restoreFactoryDefaults();
 
@@ -92,8 +93,8 @@ public class Pivot extends SubsystemBase {
         m_PivotRightMotor = new CANSparkMax(PivotConstants.pivotRightCANID, MotorType.kBrushless);
         m_PivotEncoder = m_PivotRightMotor.getAbsoluteEncoder();
 
-        PivotConfig(m_PivotRightMotor, m_PivotEncoder, true);
-        PivotConfig(m_PivotLeftMotor, m_PivotEncoder, false);
+        pivotConfig(m_PivotRightMotor, m_PivotEncoder, true);
+        pivotConfig(m_PivotLeftMotor, m_PivotEncoder, false);
 
         m_PivotLeftMotor.follow(m_PivotRightMotor, true);
 
@@ -139,34 +140,28 @@ public class Pivot extends SubsystemBase {
         // m_setPoint = PivotConstants.kPivotMinAngle;
         // }
 
-        SmartDashboard.putNumber("Current left", m_PivotLeftMotor.getOutputCurrent());
-        SmartDashboard.putNumber("Current right", m_PivotRightMotor.getOutputCurrent());    
+        SmartDashboard.putNumber("Current left", MotorUtils.getCurrent(m_PivotRightMotor));
+        SmartDashboard.putNumber("Current right", MotorUtils.getCurrent(m_PivotRightMotor));
         SmartDashboard.putNumber("set point", m_setPoint.in(Degrees));
-        // if (!manualControl)
-        //     pivotTo(m_setPoint);
     }
 
     public void pivot(PivotDirection direction) {
         switch (direction) {
             case UP:
                 manualControl = true;
-                pivotSpeed(PivotConstants.kPivotUpSpeed);
+                MotorUtils.setSpeed(m_PivotRightMotor, PivotConstants.kPivotUpSpeed);
                 break;
             case DOWN:
                 manualControl = true;
-                pivotSpeed(PivotConstants.kPivotDownSpeed);
+                MotorUtils.setSpeed(m_PivotRightMotor, PivotConstants.kPivotDownSpeed);
                 break;
             case STOP:
             default:
                 manualControl = false;
                 m_setPoint = Radians.of(getEncoderPosition());
-                pivotSpeed(0);
+                MotorUtils.setSpeed(m_PivotRightMotor, 0);
         }
 
-    }
-
-    public void pivotSpeed(double speedPercentage) {
-        m_PivotRightMotor.set(speedPercentage);
     }
 
     // angle is in radians
@@ -214,11 +209,11 @@ public class Pivot extends SubsystemBase {
     }
 
     public Command pivotUp(){
-        return Commands.run(()-> {manualControl = true; pivotSpeed(PivotConstants.kPivotSpeed);}, this);
+        return Commands.run(()-> {manualControl = true; MotorUtils.setSpeed(m_PivotRightMotor, PivotConstants.kPivotSpeed);}, this);
     }
 
     public Command pivotDown(){
-        return Commands.run(()-> {manualControl = true; pivotSpeed(-PivotConstants.kPivotSpeed);}, this);
+        return Commands.run(()-> {manualControl = true; MotorUtils.setSpeed(m_PivotRightMotor, -PivotConstants.kPivotSpeed);}, this);
     }
 
     // public void setDefaultCommand(){

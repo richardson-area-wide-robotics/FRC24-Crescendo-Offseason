@@ -1,4 +1,4 @@
-package frc.lib.util;
+package frc.lib.swerve;
 
 public class SwerveModuleConstants {
   public final int driveMotorID;
@@ -8,8 +8,8 @@ public class SwerveModuleConstants {
   /**
    * Swerve Module Constants to be used when creating swerve modules.
    *
-   * @param driveMotorID
-   * @param angleMotorID
+   * @param driveMotorID The CANID of the driving motor
+   * @param angleMotorID The CANID of the turning motor
    * @param angleOffset
    */
   public SwerveModuleConstants(int driveMotorID, int angleMotorID, double angleOffset) {

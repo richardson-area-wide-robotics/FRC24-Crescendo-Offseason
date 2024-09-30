@@ -30,7 +30,7 @@ public class DriveSubsystem extends Swerve {
     private static final MAXSwerveModule backRight = new MAXSwerveModule(
             Constants.SwerveDriveConstants.BackRightModule.S_MODULE_CONSTANTS);
 
-    private Camera m_camera;
+    private final Camera m_camera;
 
     public DriveSubsystem(AHRS m_gyro, Camera camera) {
         super(

@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.IntakeConstants;
 import frc.robot.Constants.IntakeConstants.IntakeState;
+import frc.utils.MotorUtils;
 
 public class Intake extends SubsystemBase {
 
@@ -33,27 +34,6 @@ public class Intake extends SubsystemBase {
     }
 
     /**
-     * Returns the output current of the motor
-     */
-    public double getCurrent() {
-        return m_intakeMotor.getOutputCurrent();
-    }
-
-    /**
-     * Returns the speed of the motor
-     */
-    public double getSpeed() {
-        return m_intakeMotor.get();
-    }
-
-    /**
-     * Stops the intake motor
-     */
-    public void stopIntake() {
-        m_intakeMotor.stopMotor();
-    }
-
-    /**
      * Commands the intake to spin in the positive direction - intaking
      */
     public Command intake() {
@@ -74,7 +54,7 @@ public class Intake extends SubsystemBase {
      */
     public void setDefaultCommand() {
         m_intakeState = IntakeState.IDLE;
-        setDefaultCommand(new RunCommand(this::stopIntake, this));
+        setDefaultCommand(new RunCommand(()-> MotorUtils.stopMotor(m_intakeMotor), this));
     }
     
 }
