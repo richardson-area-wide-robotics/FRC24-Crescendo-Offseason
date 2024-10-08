@@ -16,7 +16,7 @@ FUNCTION : Ramp up, Ramp down, and Idle spin);
 FUNCTION : get the robot on chain, unroll and reroll string);
     B-->e(Feeder *11*
 FUNCTION : hold note, feed into shooter, and feed back into intake to outake)-->c;
-    A-->f(Pivot
+    3-->f(Pivot
 FUNCTION : move up, move, down, go to positions);
     9-->u(Pivot Left *9*)
     9-->v(Pivot Right *10*)
